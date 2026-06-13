@@ -114,19 +114,23 @@ function setMemo(el){var k=el.dataset.k,v=el.value;if(v!==''&&v!=null)MEMO[k]=v;
 function pushMemo(k){if(!GAS_URL||GAS_URL.indexOf('script.google.com')<0)return;setSync('保存中…');fetch(GAS_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({key:'MX__'+k,d:MEMO[k]||'',n:''})}).then(function(){setSync('共有保存OK');}).catch(function(){setSync('保存失敗(通信)');});}
 function toggleChip(el,grp,val){var set=grp==='pref'?selPref:grp==='cat'?selCat:selDist;if(set.has(val)){set.delete(val);el.classList.remove('on');}else{set.add(val);el.classList.add('on');}render();}
 function distKey(d){return d.nc==='G'?'mid':d.nc==='B'?'far':'near';}
-function hasBd(d){var v=BV[key(d)]||{};return !!(v.rd||v.ad);}
-function bdAgeDays(d){var v=BV[key(d)]||{};var t=v.rd||v.ad||'';if(!t)return -1;var p=String(t).split('/');var m=parseInt(p[0],10),day=parseInt(p[1],10);if(!m||!day)return -1;var now=new Date();var dt=new Date(now.getFullYear(),m-1,day);var diff=Math.floor((now-dt)/86400000);if(diff<-1)diff+=365;return diff;}
+function hasBd(d){return !!bdLatestK(key(d));}
+function bdAgeDays(d){var iso=bdLatestK(key(d));if(!iso)return -1;var p=iso.split('-');var dt=new Date(+p[0],(+p[1])-1,+p[2]);return Math.floor((new Date()-dt)/86400000);}
 var selPref=new Set(),selCat=new Set(),selDist=new Set();
 var rentMin=null,rentMax=null,lcMin=null,lcMax=null,bdF='all',fPri='all',fSearch='';
 var sortCol='rank',sortDir='asc';
 function key(d){return d.pref+'|'+d.cat+'|'+d.st;}
+function bdLog(k){var v=BV[k];return (v&&v.log)?v.log:null;}
+function bdLatestK(k){var lg=bdLog(k);if(!lg)return '';var ks=Object.keys(lg);if(!ks.length)return '';ks.sort();return ks[ks.length-1];}
+function bdMonth(k){var lg=bdLog(k),r=0,a=0;if(lg){var n=new Date();var pre=n.getFullYear()+'-'+('0'+(n.getMonth()+1)).slice(-2);Object.keys(lg).forEach(function(dd){if(dd.indexOf(pre)===0){r+=(+lg[dd].r||0);a+=(+lg[dd].a||0);}});}return {r:r,a:a};}
+function fmtMD(s){if(!s)return '';var p=String(s).split('-');if(p.length<3)return s;return parseInt(p[1],10)+'/'+parseInt(p[2],10);}
 function setSync(t){var e=document.getElementById('sync');if(e)e.textContent=t;}
 function priRank(l){return {S:5,A:4,B:3,C:2,D:1}[l]||0;}
 function mdnum(s){if(!s)return 0;var p=String(s).split('/');return (parseInt(p[0],10)||0)*100+(parseInt(p[1],10)||0);}
-function bdLatest(d){var v=BV[key(d)]||{};return Math.max(mdnum(v.rd),mdnum(v.ad));}
+function bdLatest(d){return bdLatestK(key(d));}
 function gbadge(d){if(!d.hasd||d.gr==null)return '<span class="nd">—</span>';var bg={S:'#f4c430',A:'#fbf3d5',B:'#eaf1f9',C:'#eef0f2'}[d.gr],fg=d.gr==='S'?'#5c4a00':(d.gr==='C'?'#6a7686':'#1a3d6b');return '<span class="gb" style="background:'+bg+';color:'+fg+'">'+d.gr+'</span><span class="gv">'+d.gsc+'</span>';}
 function priButtons(d){var k=key(d),cur=PR[k]||'';var L=['S','A','B','C','D'],h='<div class="prseg">';L.forEach(function(l){h+='<button type="button" class="prbtn'+(cur===l?' active':'')+'" data-l="'+l+'" onclick="setPriority(\''+k+'\',\''+l+'\')">'+l+'</button>';});return h+'</div>';}
-function bdCell(d){var v=BV[key(d)]||{};function ln(cls,lab,dt,nm){if(!dt&&!nm)return '';return '<span class="bdsrc '+cls+'">'+lab+'</span>'+(dt||'—')+(nm?(' <span class="bdnum">'+nm+'</span>'):'');}var R=ln('r','R',v.rd,v.rn),A=ln('a','A',v.ad,v.an);if(!R&&!A)return '<span class="nd">—</span>';return R+(R&&A?'<br>':'')+A;}
+function bdCell(d){var k=key(d);var lt=bdLatestK(k);if(!lt)return '<span class="nd">—</span>';var mo=bdMonth(k);return '最新 '+fmtMD(lt)+'<br><span style="color:var(--tert);font-size:10px">今月 R'+mo.r+' / A'+mo.a+'</span>';}
 function setPriority(k,l){if(PR[k]===l)delete PR[k];else PR[k]=l;try{localStorage.setItem('aivoyage_priority',JSON.stringify(PR));}catch(e){}pushPri(k);render();}
 function pushPri(k){if(!GAS_URL||GAS_URL.indexOf('script.google.com')<0)return;setSync('保存中…');fetch(GAS_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({key:'PR__'+k,d:PR[k]||'',n:''})}).then(function(){setSync('共有保存OK');}).catch(function(){setSync('保存失敗(通信)');});}
 function onCtrl(){function num(id){var v=document.getElementById(id).value;return v===''?null:parseFloat(v);}rentMin=num('rMin');rentMax=num('rMax');lcMin=num('lMin');lcMax=num('lMax');bdF=document.getElementById('bdF').value;fPri=document.getElementById('fPri').value;fSearch=document.getElementById('fSearch').value.trim();render();}
