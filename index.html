@@ -312,8 +312,26 @@ td.tantocell{text-align:center}
 .sp-tools{margin-left:8px}
 .sp-tb{font:inherit;font-size:10px;border:1px solid #d8dee8;background:#fff;color:#46505c;border-radius:7px;padding:3px 9px;cursor:pointer;margin-left:4px}
 .sp-tb:hover{background:#f3f8ff;border-color:#bcd0e8;color:#1a3d6b}
+
+.sp-tb.sp-sync{border-color:#bcd0e8;color:#1a3d6b;font-weight:600}
+
+.binput .bdin{font:inherit;font-size:11px;padding:2px 4px;border:1px solid #d8dee8;border-radius:6px;width:120px}
+.binput .cin{font:inherit;font-size:12px;padding:2px 4px;border:1px solid #d8dee8;border-radius:6px;width:54px;text-align:right;margin-left:4px}
+textarea.memoin{width:100%;min-width:130px;font:inherit;font-size:12px;padding:5px 7px;border:1px solid #d8dee8;border-radius:7px;resize:vertical;background:#fff;box-sizing:border-box;line-height:1.35;display:block}
+textarea.memoin:focus{border-color:#1a3d6b;outline:none}
+textarea.memoin.set{border-color:#bcd0e8;background:#fbfdff}
+td.tantocell{text-align:center}
+#ft button.on{font-weight:700}
+
+.rmd-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 12px;padding:9px 12px;background:#fff5f3;border:1px solid #f3c0b6;border-radius:10px}
+.rmd-ttl{font-size:12px;font-weight:700;color:#C0392B}
+.rmd-chip{font:inherit;font-size:11px;font-weight:700;color:#fff;border:0;border-radius:999px;padding:4px 11px;cursor:pointer}
+.rmd-chip:hover{opacity:.88}
+tr.rmd-over td{background:#fff6f4}
+tr.rmd-over td.st{box-shadow:inset 3px 0 0 #C0392B}
+.rmd-bdg{display:inline-block;margin-left:6px;font-size:9px;font-weight:700;color:#fff;background:#C0392B;border-radius:5px;padding:1px 5px;white-space:nowrap}
 </style></head><body>
-<header class="top"><div class="wrap"><div class="hmono"><div class="hbadge"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z" fill="#f4c430"/></svg></div><div class="hcol"><div class="htt">Taro-Mira</div><div class="hsb">運を、構造化する。<span style="color:#9aa2ad;margin-left:7px;font-size:10px">build 2026-06-15f</span></div></div><button class="hbtn" type="button" style="margin-left:auto" onclick="openSenpage()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1a3d6b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="1.8"/><circle cx="6" cy="18" r="1.8"/><path d="M8 6h11M8 18h11M6 8v8"/></svg>沿線担当割り振り分析</button><a class="hbtn" href="priority.html" style="margin-left:8px"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L15.2 12 12 10.6 8.8 12Z" fill="#E5484D"/><path d="M12 21L15.2 12 12 13.4 8.8 12Z" fill="#E5484D" opacity="0.4"/></svg>Jiro-Polaris</a></div></div></header>
+<header class="top"><div class="wrap"><div class="hmono"><div class="hbadge"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z" fill="#f4c430"/></svg></div><div class="hcol"><div class="htt">Taro-Mira</div><div class="hsb">運を、構造化する。<span style="color:#9aa2ad;margin-left:7px;font-size:10px">build 2026-06-15i</span></div></div><button class="hbtn" type="button" style="margin-left:auto" onclick="openSenpage()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1a3d6b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="1.8"/><circle cx="6" cy="18" r="1.8"/><path d="M8 6h11M8 18h11M6 8v8"/></svg>沿線担当割り振り分析</button><a class="hbtn" href="priority.html" style="margin-left:8px"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L15.2 12 12 10.6 8.8 12Z" fill="#E5484D"/><path d="M12 21L15.2 12 12 13.4 8.8 12Z" fill="#E5484D" opacity="0.4"/></svg>Jiro-Polaris</a></div></div></header>
 <div class="wrap">
 <div class="controls">
 <div class="cg"><label>都道府県</label><div class="seg" id="fp"></div></div>
@@ -322,6 +340,7 @@ td.tantocell{text-align:center}
 <button id="tNear" class="tg" onclick="toggleNear()"><span class="bx">✓</span>近辺のみ</button>
 </div></div>
 <div class="cg"><label>間取り</label><div class="seg" id="fc"></div></div>
+<div class="cg"><label>担当者</label><div class="seg" id="ft"></div></div>
 <div class="cg"><label>表示</label><div class="seg" id="fv"></div></div>
 <div class="cg"><label>反響確度</label><div class="tgs" id="fr">
 <button class="tg rk" data-r="S" onclick="toggleRank('S')"><span class="bx">✓</span>S</button>
@@ -342,8 +361,9 @@ td.tantocell{text-align:center}
 <span style="margin-left:6px"><b>駅名の色：</b><span style="color:#0070C0">青</span>=30分以上 ／ <span style="color:#188038">緑</span>=30分前後 ／ 黒=30分未満</span>
 </div>
 <div class="lctool"><span id="lcstat" class="lcstatus">掲載数: 読込中…</span><button type="button" class="lcbtn" onclick="loadListingCounts()">更新</button></div>
+<div id="rmdBar" class="rmd-bar" style="display:none"></div>
 <div class="tablewrap"><table id="tb"><thead><tr>
-<th>駅</th><th>順位</th><th>間取り</th><th>確度</th><th class="opoh">opo</th><th>dema</th><th>担当</th><th class="lcnum">掲載数</th><th id="thDate" class="sortable" onclick="cycleDateSort()">物出し <span id="dateArrow"></span></th><th>メモ</th>
+<th>駅</th><th>順位</th><th>間取り</th><th>確度</th><th class="opoh">opo</th><th>dema</th><th class="sortable" style="text-align:center" onclick="cycleTantoSort()">担当 <span id="tantoArrow"></span></th><th class="lcnum">掲載数</th><th id="thDate" class="sortable" style="text-align:center" onclick="cycleDateSort()">物出し <span id="dateArrow"></span></th><th style="text-align:center">メモ</th>
 </tr></thead><tbody id="tbody"></tbody></table></div>
 <div class="foot">Source: SUUMO 間取り×賃料別 効果分布（関東）2026.05 ・ 同期状態: <span id="syncst">共有DB未設定</span></div>
 </div>
@@ -381,11 +401,18 @@ let exFar=false,nearOffice=false;
 function syncTg(){document.getElementById('tEx').className='tg'+(exFar?' on':'');document.getElementById('tNear').className='tg'+(nearOffice?' on':'');}
 function toggleEx(){exFar=!exFar;if(exFar)nearOffice=false;syncTg();render();}
 function toggleNear(){nearOffice=!nearOffice;if(nearOffice)exFar=false;syncTg();render();}
+var SPCOL={miyamoto:'#2E7D32',hironaka:'#1565C0',yokoyama:'#C0392B',oinuma:'#6A1B9A',tanabe:'#E67E22'};
+var SPLIST=[['miyamoto','宮本'],['hironaka','弘中'],['yokoyama','横山'],['oinuma','生沼'],['tanabe','田邊']];
+var selT=new Set();
+function segTanto(id){var e=document.getElementById(id);if(!e)return;e.innerHTML='';function mk(val,label,col){var b=document.createElement('button');b.textContent=label;if(selT.has(val)){b.className='on';b.style.background=col;b.style.borderColor=col;b.style.color='#fff';}b.onclick=function(){if(selT.has(val))selT.delete(val);else selT.add(val);render();segTanto(id);};e.appendChild(b);}SPLIST.forEach(function(m){mk(m[0],m[1],SPCOL[m[0]]);});mk('__none__','未割当','#9aa2ad');}
+function cycleTantoSort(){sortMode=(sortMode==='tanto')?'rank':'tanto';var ar=document.getElementById('tantoArrow');if(ar)ar.textContent=(sortMode==='tanto')?'▲':'';var da=document.getElementById('dateArrow');if(da&&sortMode==='tanto')da.textContent='';render();}
+function bdCount(v){if(v==null)return 0;if(typeof v==='number')return v;if(typeof v==='object')return (v.c!=null?(+v.c||0):((+v.r||0)+(+v.a||0)));var n=parseInt(v,10);return isNaN(n)?0:n;}
 function segM(id,opts,set,cb){const e=document.getElementById(id);if(!e)return;e.innerHTML='';opts.forEach(o=>{const b=document.createElement('button');b.textContent=o;if(set.has(o))b.className='on';b.onclick=()=>{if(set.has(o))set.delete(o);else set.add(o);b.className=set.has(o)?'on':'';cb();};e.appendChild(b);});}
 function seg(id,opts,cur,cb){const e=document.getElementById(id);e.innerHTML='';opts.forEach(o=>{const b=document.createElement('button');b.textContent=o;if(o===cur)b.className='on';b.onclick=()=>{cb(o);[...e.children].forEach(c=>c.className=c.textContent===o?'on':'');};e.appendChild(b)})}
 segM('fp',['東京','神奈川','千葉'],selP,render);
 segM('fc',['シングル','カップル','ファミリー'],selC,render);
 segM('fv',['分布あり','opoあり'],selV,render);
+segTanto('ft');
 document.getElementById('q').addEventListener('input',e=>{q=e.target.value.trim();render()});
 function filt(){return DATA.filter(d=>{
  if(selP.size&&!selP.has(d.pref))return false;
@@ -393,6 +420,7 @@ function filt(){return DATA.filter(d=>{
  if(nearOffice&&d.nc!=='N')return false;
  if(selRanks.size&&!(d.gr&&selRanks.has(d.gr)))return false;
  if(selC.size&&!selC.has(d.cat))return false;
+ if(selT.size){var _ek=d.line+'|'+d.st+'|'+d.cat+'|'+d.pref;var _as=(typeof EASSIGN!=='undefined'&&EASSIGN[_ek])||'';var _ok=(_as&&selT.has(_as))||(!_as&&selT.has('__none__'));if(!_ok)return false;}
  if(selV.has('分布あり')&&!d.hasd)return false;
  if(selV.has('opoあり')&&!(d.hasd&&zonesOf(d).oz.length>0))return false;
  if(q){const s=(d.st+' '+d.line);if(!s.includes(q))return false;}
@@ -434,8 +462,8 @@ function fmtMD(s){if(!s)return '';var p=String(s).split('-');if(p.length<3)retur
 function todayISO(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);}
 function bdLog(k){var v=BV[k];return (v&&v.log)?v.log:null;}
 function bdLatestK(k){var lg=bdLog(k);if(!lg)return '';var ks=Object.keys(lg);if(!ks.length)return '';ks.sort();return ks[ks.length-1];}
-function bdMonth(k){var lg=bdLog(k),r=0,a=0;if(lg){var n=new Date();var pre=n.getFullYear()+'-'+('0'+(n.getMonth()+1)).slice(-2);Object.keys(lg).forEach(function(dd){if(dd.indexOf(pre)===0){r+=(+lg[dd].r||0);a+=(+lg[dd].a||0);}});}return {r:r,a:a};}
-function uploadRow(btn){var k=btn.dataset.k,box=btn.parentNode;var ri=box.querySelector('.nin[data-f="r"]'),ai=box.querySelector('.nin[data-f="a"]');var r=parseInt(ri.value,10),a=parseInt(ai.value,10);r=isNaN(r)?0:r;a=isNaN(a)?0:a;if(r===0&&a===0){setSync('R/Aの数を入力してください',false);return;}if(!BV[k])BV[k]={};if(!BV[k].log)BV[k].log={};BV[k].log[todayISO()]={r:r,a:a};try{localStorage.setItem('aivoyage_butsudashi_v2',JSON.stringify(BV));}catch(e){}pushRow(k);render();}
+function bdMonth(k){var lg=bdLog(k),t=0;if(lg){var n=new Date();var pre=n.getFullYear()+'-'+('0'+(n.getMonth()+1)).slice(-2);Object.keys(lg).forEach(function(dd){if(dd.indexOf(pre)===0)t+=bdCount(lg[dd]);});}return t;}
+function uploadRow(btn){var k=btn.dataset.k,box=btn.parentNode;var di=box.querySelector('.bdin'),ci=box.querySelector('.cin');var dt=(di&&di.value)?di.value:todayISO();var c=parseInt(ci&&ci.value,10);c=isNaN(c)?0:c;if(c<=0){setSync('物件出し数を入力してください',false);return;}if(!BV[k])BV[k]={};if(!BV[k].log)BV[k].log={};BV[k].log[dt]=c;try{localStorage.setItem('aivoyage_butsudashi_v2',JSON.stringify(BV));}catch(e){}pushRow(k);render();}
 function _calEl(){var el=document.getElementById('calpop');if(!el){el=document.createElement('div');el.id='calpop';el.style.display='none';document.body.appendChild(el);document.addEventListener('click',function(e){if(el.style.display!=='none'&&!el.contains(e.target)&&!(window._calAnchor&&window._calAnchor.contains(e.target)))hideCal();});}return el;}function openCal(wrap){var t=wrap.parentNode.querySelector('.din');window._calTarget=t;window._calAnchor=wrap;var now=new Date();var v=(t.value||'').split('/');window._calY=now.getFullYear();window._calM=(v.length===2&&v[0])?(parseInt(v[0],10)-1):now.getMonth();if(isNaN(window._calM)||window._calM<0||window._calM>11)window._calM=now.getMonth();var el=_calEl();renderCal();var r=wrap.getBoundingClientRect();el.style.position='absolute';el.style.left=(window.scrollX+r.left-92)+'px';el.style.top=(window.scrollY+r.bottom+6)+'px';el.style.display='block';}function hideCal(){var el=document.getElementById('calpop');if(el)el.style.display='none';}function calNav(d){window._calM+=d;if(window._calM<0){window._calM=11;window._calY--;}if(window._calM>11){window._calM=0;window._calY++;}renderCal();}function calPick(day){if(window._calTarget){window._calTarget.value=(window._calM+1)+'/'+day;setField(window._calTarget);}hideCal();}function renderCal(){var el=_calEl();var first=new Date(window._calY,window._calM,1).getDay();var dim=new Date(window._calY,window._calM+1,0).getDate();var wd=['日','月','火','水','木','金','土'];var h='<div class="calhd"><button type="button" class="calnav" onclick="calNav(-1)">‹</button><span>'+window._calY+'年'+(window._calM+1)+'月</span><button type="button" class="calnav" onclick="calNav(1)">›</button></div><div class="calgrid">';wd.forEach(function(w){h+='<div class="calwd">'+w+'</div>';});for(var i=0;i<first;i++)h+='<div></div>';for(var dd=1;dd<=dim;dd++)h+='<div class="calday" onclick="calPick('+dd+')">'+dd+'</div>';h+='</div>';el.innerHTML=h;}
 function pickTo(el){var t=el.parentNode.querySelector('.din');var md=fmtMD(el.value);if(t){t.value=md;setField(t);}}
 function setField(el){var k=el.dataset.k,fl=el.dataset.f,v=el.value;if(!BV[k])BV[k]={};if(v!==''&&v!=null)BV[k][fl]=v;else delete BV[k][fl];if(BV[k]&&!BV[k].rd&&!BV[k].rn&&!BV[k].ad&&!BV[k].an)delete BV[k];try{localStorage.setItem('aivoyage_butsudashi_v2',JSON.stringify(BV));}catch(e){}el.classList.toggle('set',v!==''&&v!=null);pushRow(k);if((fl==='rd'||fl==='ad')&&sortMode!=='rank')render();}
@@ -453,7 +481,7 @@ function loadListingCounts(){setLCstat("掲載数を取得中…");fetch(NYUKOU_
 function pushCounts(){if(!GAS_URL||GAS_URL.indexOf("script.google.com")<0)return;fetch(GAS_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({key:"__LC__",d:JSON.stringify(LC),n:""})}).catch(function(){});}
 function onXls(input){var file=input.files&&input.files[0];if(!file)return;setLCstat("読込中…");var rd=new FileReader();rd.onload=function(ev){try{var data=new Uint8Array(ev.target.result);var wb=XLSX.read(data,{type:"array"});var sheet=wb.Sheets[wb.SheetNames[0]];var aoa=XLSX.utils.sheet_to_json(sheet,{header:1,raw:true});var cnt=recomputeLC(aoa);if(!cnt){setLCstat("駅・間取の列が見つかりません");return;}LC=cnt;try{localStorage.setItem("aivoyage_lc",JSON.stringify(LC));}catch(e){}pushCounts();var tot=0,ks=Object.keys(LC);ks.forEach(function(k){tot+=LC[k];});setLCstat("掲載数を更新しました（"+tot+"件／"+ks.length+"駅×間取り）");render();}catch(err){setLCstat("読込失敗："+err);}};rd.readAsArrayBuffer(file);input.value="";}
 var LASSIGN={},LMEMO={},EMEMO={};try{LASSIGN=JSON.parse(localStorage.getItem('aivoyage_lassign')||'{}')||{};LMEMO=JSON.parse(localStorage.getItem('aivoyage_lmemo')||'{}')||{};EMEMO=JSON.parse(localStorage.getItem('aivoyage_ememo')||'{}')||{};}catch(e){}var EASSIGN={};try{EASSIGN=JSON.parse(localStorage.getItem('aivoyage_eassign')||'{}')||{};}catch(e){}var EPRI={};try{EPRI=JSON.parse(localStorage.getItem('aivoyage_epri')||'{}')||{};}catch(e){}
-function tantoSel(d){var key=d.line+'|'+d.st+'|'+d.cat+'|'+d.pref;var M=[['miyamoto','宮本'],['hironaka','弘中'],['yokoyama','横山'],['oinuma','生沼'],['tanabe','田邊']];var cur=(typeof EASSIGN!=='undefined'&&EASSIGN)?(EASSIGN[key]||''):'';var mn=(typeof LASSIGN!=='undefined'&&LASSIGN)?(LASSIGN[d.line]||''):'';var mnN='';for(var i=0;i<M.length;i++){if(M[i][0]===mn)mnN=M[i][1];}var ph=mnN?('—（主:'+mnN+'）'):'—';var kj=key.replace(/\\/g,'\\\\').replace(/'/g,"\\'");var o='<option value="">'+ph+'</option>';for(var i=0;i<M.length;i++){o+='<option value="'+M[i][0]+'"'+(cur===M[i][0]?' selected':'')+'>'+M[i][1]+'</option>';}return '<select class="tantosel'+(cur?' on':'')+'" onclick="event.stopPropagation()" onchange="setEA(\''+kj+'\',this.value)">'+o+'</select>';}
+function tantoSel(d){var key=d.line+'|'+d.st+'|'+d.cat+'|'+d.pref;var M=[['miyamoto','宮本'],['hironaka','弘中'],['yokoyama','横山'],['oinuma','生沼'],['tanabe','田邊']];var cur=(typeof EASSIGN!=='undefined'&&EASSIGN)?(EASSIGN[key]||''):'';var mn=(typeof LASSIGN!=='undefined'&&LASSIGN)?(LASSIGN[d.line]||''):'';var mnN='';for(var i=0;i<M.length;i++){if(M[i][0]===mn)mnN=M[i][1];}var ph=mnN?('—（主:'+mnN+'）'):'—';var kj=key.replace(/\\/g,'\\\\').replace(/'/g,"\\'");var o='<option value="">'+ph+'</option>';for(var i=0;i<M.length;i++){o+='<option value="'+M[i][0]+'"'+(cur===M[i][0]?' selected':'')+'>'+M[i][1]+'</option>';}var stcol=(cur&&typeof SPCOL!=='undefined'&&SPCOL[cur])?('color:'+SPCOL[cur]+';border-color:'+SPCOL[cur]+';font-weight:700'):'';return '<select style="'+stcol+'" class="tantosel'+(cur?' on':'')+'" onclick="event.stopPropagation()" onchange="setEA(\''+kj+'\',this.value)">'+o+'</select>';}
 function tantoOf(d){var M={miyamoto:'宮本',hironaka:'弘中',yokoyama:'横山',oinuma:'生沼',tanabe:'田邊'};var key=d.line+'|'+d.st+'|'+d.cat+'|'+d.pref;var e=(typeof EASSIGN!=='undefined'&&EASSIGN)?(EASSIGN[key]||''):'';if(e&&M[e])return '<span class="tanto">'+M[e]+'</span>';var l=(typeof LASSIGN!=='undefined'&&LASSIGN)?(LASSIGN[d.line]||''):'';if(l&&M[l])return '<span class="tanto main">'+M[l]+'</span>';return '<span class="nd">—</span>';}
 function loadShared(silent){if(!GAS_URL||GAS_URL.indexOf('script.google.com')<0){if(!silent)setSync('共有DB未設定（この端末のみ保存中）',false);return;}if(!silent)setSync('共有データ読込中…',true);fetch(GAS_URL).then(function(r){return r.json();}).then(function(o){if(o&&typeof o==='object'){Object.keys(o).forEach(function(k){if(k==='__LC__'){try{var _lc=JSON.parse(o[k].d||'{}');if(_lc&&typeof _lc==='object'){LC=_lc;try{localStorage.setItem('aivoyage_lc',JSON.stringify(LC));}catch(e){}}}catch(e){}return;}if(k.indexOf('MX__')===0){MEMO[k.slice(4)]=o[k].d||'';return;}if(k.indexOf('PR__')===0){return;}if(k.indexOf('LA__')===0){LASSIGN[k.slice(4)]=o[k].d||'';return;}if(k.indexOf('LM__')===0){LMEMO[k.slice(4)]=o[k].d||'';return;}if(k.indexOf('EM__')===0){EMEMO[k.slice(4)]=o[k].d||'';return;}if(k.indexOf('EA__')===0){EASSIGN[k.slice(4)]=o[k].d||'';return;}if(k.indexOf('EP__')===0){EPRI[k.slice(4)]=o[k].d||'';return;}try{var _pv=JSON.parse(o[k].d||'');if(_pv&&typeof _pv==='object'){BV[k]=_pv;}}catch(e){}});try{localStorage.setItem('aivoyage_butsudashi_v2',JSON.stringify(BV));}catch(e){}try{localStorage.setItem('aivoyage_memo',JSON.stringify(MEMO));}catch(e){}try{localStorage.setItem('aivoyage_lassign',JSON.stringify(LASSIGN));localStorage.setItem('aivoyage_lmemo',JSON.stringify(LMEMO));localStorage.setItem('aivoyage_ememo',JSON.stringify(EMEMO));localStorage.setItem('aivoyage_eassign',JSON.stringify(EASSIGN));localStorage.setItem('aivoyage_epri',JSON.stringify(EPRI));}catch(e){}try{var _rk={'LA__':LASSIGN,'LM__':LMEMO,'EM__':EMEMO,'EA__':EASSIGN,'EP__':EPRI};if(typeof MEMO!=='undefined')_rk['MX__']=MEMO;Object.keys(_rk).forEach(function(pf){var ob=_rk[pf];Object.keys(ob).forEach(function(kk){var fk=pf+kk;if(!(fk in o)&&ob[kk]!==''&&ob[kk]!=null){spPushKV(fk,ob[kk]);}});});}catch(e){}if(typeof spRender==='function'&&!spEditing()&&document.getElementById('senpage')&&document.getElementById('senpage').classList.contains('show'))spRender();}if(!silent)setSync('共有DB接続OK',true);if(!spEditing())render();}).catch(function(){if(!silent)setSync('共有DBに接続できません',false);});}
 function setCnt(el){var k=el.dataset.k,v=el.value;if(v!==''&&v!=null)BN[k]=v;else delete BN[k];try{localStorage.setItem('aivoyage_butsudashisu',JSON.stringify(BN));}catch(e){}el.classList.toggle('set',v!==''&&v!=null);pushRow(k);}
@@ -462,17 +490,17 @@ function setBD(k,v){if(v)BD[k]=v;else delete BD[k];try{localStorage.setItem('aiv
 var sortMode='rank';
 function applySort(rows){
  if(sortMode==='rank')return rows;
+ function _dnum(r){var k=r.pref+'|'+r.cat+'|'+r.st;var t=bdLatestK(k);if(!t)return 0;var p=String(t).split('-');return (parseInt(p[0],10)||0)*10000+(parseInt(p[1],10)||0)*100+(parseInt(p[2],10)||0);}
+ if(sortMode==='tanto'){var ord={miyamoto:0,hironaka:1,yokoyama:2,oinuma:3,tanabe:4};function _ti(r){var ek=r.line+'|'+r.st+'|'+r.cat+'|'+r.pref;var as=(typeof EASSIGN!=='undefined'&&EASSIGN[ek])||'';return (as!==''&&ord[as]!=null)?ord[as]:99;}
+  return rows.slice().sort(function(a,b){var ta=_ti(a),tb=_ti(b);if(ta!==tb)return ta-tb;var da=_dnum(a),db=_dnum(b);if(!da&&!db)return a.rank-b.rank;if(!da)return 1;if(!db)return -1;return da-db;});}
  var asc=sortMode==='date-asc';
- function _dof(r){var v=BV[r.pref+'|'+r.cat+'|'+r.st]||{};var t=v.rd||v.ad||'';if(!t)return 0;var p=String(t).split('/');return (parseInt(p[0],10)||0)*100+(parseInt(p[1],10)||0);}
- return rows.slice().sort(function(a,b){
-   var da=_dof(a),db=_dof(b);
-   if(!da&&!db)return a.rank-b.rank;
-   if(!da)return 1;if(!db)return -1;
-   if(da<db)return asc?-1:1;if(da>db)return asc?1:-1;
-   return a.rank-b.rank;
- });
+ return rows.slice().sort(function(a,b){var da=_dnum(a),db=_dnum(b);if(!da&&!db)return a.rank-b.rank;if(!da)return 1;if(!db)return -1;if(da<db)return asc?-1:1;if(da>db)return asc?1:-1;return a.rank-b.rank;});
 }
 function cycleDateSort(){sortMode=sortMode==='rank'?'date-asc':sortMode==='date-asc'?'date-desc':'rank';var ar=document.getElementById('dateArrow');if(ar)ar.textContent=sortMode==='date-asc'?'▲':sortMode==='date-desc'?'▼':'';render();}
+function daysSinceLast(k){var t=bdLatestK(k);if(!t)return null;var p=String(t).split('-');if(p.length<3)return null;var d0=new Date(+p[0],(+p[1])-1,+p[2]);var now=new Date();var n0=new Date(now.getFullYear(),now.getMonth(),now.getDate());return Math.floor((n0-d0)/86400000);}
+function rmdInfo(){var by={};DATA.forEach(function(d){var ek=d.line+'|'+d.st+'|'+d.cat+'|'+d.pref;var as=(typeof EASSIGN!=='undefined'&&EASSIGN[ek])||'';if(!as)return;var ds=daysSinceLast(d.pref+'|'+d.cat+'|'+d.st);if(ds===null||ds>=3){if(!by[as])by[as]=0;by[as]++;}});return by;}
+function renderReminders(){var el=document.getElementById('rmdBar');if(!el)return;var by=rmdInfo();var total=0;Object.keys(by).forEach(function(k){total+=by[k];});if(!total){el.style.display='none';el.innerHTML='';return;}el.style.display='';var h='<span class="rmd-ttl">\u26a0 3\u65e5\u4ee5\u4e0a \u7269\u51fa\u3057\u306a\u3057\u306e\u62c5\u5f53\u99c5 '+total+'\u4ef6</span>';SPLIST.forEach(function(m){if(by[m[0]]){h+='<button type="button" class="rmd-chip" style="background:'+SPCOL[m[0]]+'" onclick="rmdFilter(\''+m[0]+'\')">'+m[1]+' '+by[m[0]]+'\u99c5</button>';}});el.innerHTML=h;}
+function rmdFilter(id){selT.clear();selT.add(id);sortMode='tanto';var ar=document.getElementById('tantoArrow');if(ar)ar.textContent='\u25b2';if(typeof segTanto==='function')segTanto('ft');render();if(window.scrollTo)window.scrollTo(0,0);}
 function render(){
  const rows=applySort(filt());const tb=document.getElementById('tbody');
  let html='';
@@ -483,7 +511,8 @@ function render(){
    oppC=Z.oz.length?'<span class="rrz">'+Z.olab+'</span>':'<span class="nd">なし</span>';
    o8C=Z.o8z.length?'<span class="rrz">'+Z.o8lab+'</span>':'<span class="nd">—</span>';
    supC='<span class="sup">'+Z.slab+'</span>';}
-  html+='<tr data-id="'+d.pref+'|'+d.cat+'|'+d.st+'" onclick="openD(this)">'
+  var _ek=d.line+'|'+d.st+'|'+d.cat+'|'+d.pref;var _as=(typeof EASSIGN!=='undefined'&&EASSIGN[_ek])||'';var _ds=daysSinceLast(d.pref+'|'+d.cat+'|'+d.st);var _over=!!(_as&&(_ds===null||_ds>=3));
+  html+='<tr class="'+(_over?'rmd-over':'')+'" data-id="'+d.pref+'|'+d.cat+'|'+d.st+'" onclick="openD(this)">'
    +'<td class="st" data-label="駅"'+(d.nc==='B'?' style="color:#0070C0"':d.nc==='G'?' style="color:#188038"':'')+'>'+d.st+'</td>'
    +'<td data-label="順位">'+d.rank+'</td>'
    +'<td class="bd" data-label="間取り">'+d.cat+'</td>'
@@ -493,12 +522,13 @@ function render(){
    +'<td data-label="担当" class="tantocell">'+tantoSel(d)+'</td>'
    +'<td data-label="掲載数" class="lcnum">'+(LC[d.cat+'|'+d.st]!=null?LC[d.cat+'|'+d.st]:'<span class=nd>—</span>')+'</td>'
    +'<td class="bcell" data-label="物出し" onclick="event.stopPropagation()">'
-   +'<div class="bsum"><span class="bdate">最新 '+(fmtMD(bdLatestK((d.pref+'|'+d.cat+'|'+d.st)))||'—')+'</span><span class="bmon">今月 <b class="r">'+bdMonth((d.pref+'|'+d.cat+'|'+d.st)).r+'</b> / <b class="a">'+bdMonth((d.pref+'|'+d.cat+'|'+d.st)).a+'</b></span></div>'
-   +'<div class="binput"><span class="src2 r">R</span><input type="number" min="0" inputmode="numeric" class="nin" data-f="r"><span class="src2 a">A</span><input type="number" min="0" inputmode="numeric" class="nin" data-f="a"><button type="button" class="upbtn" data-k="'+(d.pref+'|'+d.cat+'|'+d.st)+'" onclick="uploadRow(this)">登録</button></div>'
+   +'<div class="bsum"><span class="bdate">最新 '+(fmtMD(bdLatestK((d.pref+'|'+d.cat+'|'+d.st)))||'—')+'</span>'+(_over?'<span class="rmd-bdg">要物出し'+(_ds===null?'(未)':'('+_ds+'日)')+'</span>':'')+'<span class="bmon">今月 <b class="r">'+bdMonth((d.pref+'|'+d.cat+'|'+d.st))+'</b> 件</span></div>'
+   +'<div class="binput"><input type="date" class="bdin" value="'+todayISO()+'"><input type="number" min="0" inputmode="numeric" class="cin" placeholder="数"><button type="button" class="upbtn" data-k="'+(d.pref+'|'+d.cat+'|'+d.st)+'" onclick="uploadRow(this)">登録</button></div>'
    +'</td>'
-   +'<td class="mcell" data-label="メモ" onclick="event.stopPropagation()"><input type="text" class="memoin'+(mget((d.pref+'|'+d.cat+'|'+d.st))?' set':'')+'" data-k="'+(d.pref+'|'+d.cat+'|'+d.st)+'" value="'+esc(mget((d.pref+'|'+d.cat+'|'+d.st)))+'" onchange="setMemo(this)"></td>'
+   +'<td class="mcell" data-label="メモ" onclick="event.stopPropagation()"><textarea rows="2" class="memoin'+(mget((d.pref+'|'+d.cat+'|'+d.st))?' set':'')+'" data-k="'+(d.pref+'|'+d.cat+'|'+d.st)+'" placeholder="メモを入力" onchange="setMemo(this)">'+esc(mget((d.pref+'|'+d.cat+'|'+d.st)))+'</textarea></td>'
    +'</tr>';}
  tb.innerHTML=html||'<tr><td colspan="10" style="padding:24px;text-align:center;color:#999">該当データなし</td></tr>';
+ renderReminders();
  const wd=rows.filter(r=>r.hasd);
  const oppc=wd.filter(r=>zonesOf(r).oz.length>0).length;
  const ah=wd.filter(r=>r.h!=null);const avg=ah.length?(ah.reduce((a,b)=>a+b.h,0)/ah.length).toFixed(1)+'万':'—';
@@ -765,13 +795,14 @@ function spRestore(inp){var f=inp&&inp.files&&inp.files[0];if(!f)return;if(!conf
  try{localStorage.setItem('aivoyage_lassign',JSON.stringify(LASSIGN));localStorage.setItem('aivoyage_lmemo',JSON.stringify(LMEMO));localStorage.setItem('aivoyage_ememo',JSON.stringify(EMEMO));localStorage.setItem('aivoyage_eassign',JSON.stringify(EASSIGN));localStorage.setItem('aivoyage_epri',JSON.stringify(EPRI));if(typeof MEMO!=='undefined')localStorage.setItem('aivoyage_memo',JSON.stringify(MEMO));}catch(e){}
  if(typeof spRender==='function')spRender();if(typeof render==='function')render();alert('復元しました（共有DBにも反映中）。');}catch(e){alert('復元失敗: '+e);}inp.value='';};rd.readAsText(f);}
 function spRestoreClick(){var el=document.getElementById('sprestore');if(el)el.click();}
+function spSyncNow(){try{if(typeof pqFlush==='function')pqFlush();}catch(e){}try{if(typeof loadShared==='function')loadShared(false);}catch(e){}}
 function spBinRent(i){if(i<=0)return 2.5;if(i<=17)return i+2;if(i===18)return 22;if(i===19)return 27;return 32;}
 function spOpoRent(d){if(!d.hasd)return null;var Z=zonesOf(d);if(!Z.opp||!Z.opp.length)return null;var sum=0,w=0;Z.opp.forEach(function(i){var sh=d.sh[i]||0;sum+=sh*spBinRent(i);w+=sh;});return w>0?sum/w:null;}
 function spOpoBand(d){if(!d.hasd)return '';var Z=zonesOf(d);return (Z.oz&&Z.oz.length)?Z.olab:'';}
 function spOpenGap(pf,ct,st){var dt=document.getElementById('detail');if(dt)dt.style.zIndex='10000';openD({dataset:{id:pf+'|'+ct+'|'+st},classList:{add:function(){},remove:function(){}}});}
 function spKey(d){return d.line+'|'+d.st+'|'+d.cat+'|'+d.pref;}
 function setEA(key,v){if(v)EASSIGN[key]=v;else delete EASSIGN[key];try{localStorage.setItem('aivoyage_eassign',JSON.stringify(EASSIGN));}catch(e){}spPushKV('EA__'+key,v||'');spRender();if(typeof render==='function')render();}
-function spStaffSel(cur,onch,cls){return '<select class="sp-sel'+(cur?' on':'')+(cls?' '+cls:'')+'" onclick="event.stopPropagation()" onchange="'+onch+'"><option value="">未割当</option>'+SPSTAFF.map(function(s){return '<option value="'+s.id+'"'+(cur===s.id?' selected':'')+'>'+s.n+'</option>';}).join('')+'</select>';}
+function spStaffSel(cur,onch,cls){var _c=(cur&&typeof SPCOL!=='undefined'&&SPCOL[cur])?('color:'+SPCOL[cur]+';border-color:'+SPCOL[cur]+';font-weight:700'):'';return '<select style="'+_c+'" class="sp-sel'+(cur?' on':'')+(cls?' '+cls:'')+'" onclick="event.stopPropagation()" onchange="'+onch+'"><option value="">未割当</option>'+SPSTAFF.map(function(s){return '<option value="'+s.id+'"'+(cur===s.id?' selected':'')+'>'+s.n+'</option>';}).join('')+'</select>';}
 function spRender(){
  var L=spAgg().sort(spCmp);
  // 担当別集計（駅×間取り単位の担当=EASSIGN で集計）
@@ -800,7 +831,7 @@ function spRender(){
  });
  h+='</tbody></table></div>';
  var body=document.getElementById('spbody');if(!body)return;
- body.innerHTML='<div class="sp-head"><div class="sp-ht">沿線担当割り振り分析 <span class="sp-tools"><button class="sp-tb" type="button" onclick="spBackup()">⬇ バックアップ</button><button class="sp-tb" type="button" onclick="spRestoreClick()">⬆ 復元</button></span></div><div class="sp-hs">担当別の集計は「駅×間取りごとの担当」で計算します。沿線の「メイン担当」はあくまで目安メモです。メモ・担当は全PCで共有。opo帯＝最も伸ばせる価格帯。上位スコア＝Σ(101−順位)。</div></div>'+
+ body.innerHTML='<div class="sp-head"><div class="sp-ht">沿線担当割り振り分析 <span class="sp-tools"><button class="sp-tb sp-sync" type="button" onclick="spSyncNow()">🔄 今すぐ同期</button><button class="sp-tb" type="button" onclick="spBackup()">⬇ バックアップ</button><button class="sp-tb" type="button" onclick="spRestoreClick()">⬆ 復元</button></span></div><div class="sp-hs">担当別の集計は「駅×間取りごとの担当」で計算します。沿線の「メイン担当」はあくまで目安メモです。メモ・担当は全PCで共有。opo帯＝最も伸ばせる価格帯。上位スコア＝Σ(101−順位)。</div></div>'+
    sumh+bar+'<div class="sp-cnt">対象 '+spRows().length+' 駅×間取り ／ '+L.length+'沿線（'+(spPref==='all'?'一都三県':spPref)+' ／ '+(spCat==='all'?'全間取り':spCat)+'）</div>'+h;
 }
 function spDetail(o){
