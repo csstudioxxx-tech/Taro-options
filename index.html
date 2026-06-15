@@ -283,6 +283,16 @@ td.opocell{background:#fbfaf3}
 td.opocell .rrz{font-weight:800}
 .tanto{display:inline-block;font-size:11px;font-weight:600;color:#1a3d6b;background:#eef2f8;border-radius:5px;padding:1px 7px}
 td.tantocell{text-align:center}
+
+/* sp: opo帯賃料・gap分析リンク */
+.sp-rent{font-size:9.5px;color:#46505c;margin-top:6px;display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.sp-rent .rl{color:#9aa2ad}
+.sp-rent span{background:#f2f4f7;border-radius:4px;padding:0 5px}
+.sp-rent .rl{background:transparent;padding:0}
+.sp-rent .al{background:#eef2f8;color:#1a3d6b;font-weight:700}
+.sp-band{color:#1a3d6b;font-weight:600}
+.sp-t2 tr.sp-drow:hover>td{background:#eef5fb}
+.sp-hint{font-size:9px;color:#9aa2ad;margin-left:6px}
 </style></head><body>
 <header class="top"><div class="wrap"><div class="hmono"><div class="hbadge"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z" fill="#f4c430"/></svg></div><div class="hcol"><div class="htt">Taro-Mira</div><div class="hsb">運を、構造化する。</div></div><button class="hbtn" type="button" style="margin-left:auto" onclick="openSenpage()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1a3d6b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="1.8"/><circle cx="6" cy="18" r="1.8"/><path d="M8 6h11M8 18h11M6 8v8"/></svg>沿線担当割り振り分析</button><a class="hbtn" href="priority.html" style="margin-left:8px"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L15.2 12 12 10.6 8.8 12Z" fill="#E5484D"/><path d="M12 21L15.2 12 12 13.4 8.8 12Z" fill="#E5484D" opacity="0.4"/></svg>Jiro-Polaris</a></div></div></header>
 <div class="wrap">
@@ -721,19 +731,28 @@ function spS(k){if(spSortK===k){spSortD*=-1;}else{spSortK=k;spSortD=(k==='name')
 function spToggle(l){if(spOpen===l)spOpen=null;else{spOpen=l;spDPref='all';spDSortK='r';spDSortD=1;}spRender();}
 function spSetDPref(p){spDPref=p;spRender();}
 function spSDt(k){if(spDSortK===k)spDSortD*=-1;else{spDSortK=k;spDSortD=1;}spRender();}
+function spBinRent(i){if(i<=0)return 2.5;if(i<=17)return i+2;if(i===18)return 22;if(i===19)return 27;return 32;}
+function spOpoRent(d){if(!d.hasd)return null;var Z=zonesOf(d);if(!Z.opp||!Z.opp.length)return null;var sum=0,w=0;Z.opp.forEach(function(i){var sh=d.sh[i]||0;sum+=sh*spBinRent(i);w+=sh;});return w>0?sum/w:null;}
+function spOpoBand(d){if(!d.hasd)return '';var Z=zonesOf(d);return (Z.oz&&Z.oz.length)?Z.olab:'';}
+function spOpenGap(pf,ct,st){var dt=document.getElementById('detail');if(dt)dt.style.zIndex='10000';openD({dataset:{id:pf+'|'+ct+'|'+st},classList:{add:function(){},remove:function(){}}});}
 function spRender(){
  var L=spAgg().sort(spCmp);
  var tot={};SPSTAFF.forEach(function(s){tot[s.id]={st:0,n:0,sc:0,ln:0};});tot['']={st:0,n:0,sc:0,ln:0};
  L.forEach(function(o){var a=LASSIGN[o.l]||'';if(!tot[a])tot[a]={st:0,n:0,sc:0,ln:0};tot[a].st+=o.stations;tot[a].n+=o.n;tot[a].sc+=o.score;tot[a].ln++;});
+ var rent={};function _rk(id){if(!rent[id])rent[id]={'シングル':[0,0],'カップル':[0,0],'ファミリー':[0,0]};return rent[id];}
+ DATA.forEach(function(d){if(spPref!=='all'&&d.pref!==spPref)return;var a=LASSIGN[d.line]||'';var r=spOpoRent(d);if(r==null)return;var ob=_rk(a);if(ob[d.cat]){ob[d.cat][0]+=r;ob[d.cat][1]++;}});
+ function _avg(id){var o=rent[id];function m(a){return (a&&a[1])?a[0]/a[1]:null;}if(!o)return {S:null,C:null,F:null,all:null};var s=o['シングル'],c=o['カップル'],f=o['ファミリー'];var asum=s[0]+c[0]+f[0],acnt=s[1]+c[1]+f[1];return {S:m(s),C:m(c),F:m(f),all:acnt?asum/acnt:null};}
+ function _f(v){return v==null?'—':(Math.round(v*10)/10);}
+ function rentline(id){var a=_avg(id);return '<div class="sp-rent"><span class="rl">opo帯賃料</span><span>S '+_f(a.S)+'</span><span>C '+_f(a.C)+'</span><span>F '+_f(a.F)+'</span><span class="al">計 '+_f(a.all)+'万</span></div>';}
  var sumh='<div class="sp-summary">';
- SPSTAFF.forEach(function(s){var t=tot[s.id];sumh+='<div class="sp-sc"><div class="sp-scn">'+s.n+'</div><div class="sp-scl">担当沿線 '+t.ln+'</div><div class="sp-scg"><span>'+t.st+'駅</span><span>'+t.n+'枠</span><span class="sp-scs">スコア'+t.sc+'</span></div></div>';});
- var tu=tot[''];sumh+='<div class="sp-sc un"><div class="sp-scn">未割当</div><div class="sp-scl">沿線 '+tu.ln+'</div><div class="sp-scg"><span>'+tu.st+'駅</span><span>'+tu.n+'枠</span><span class="sp-scs">スコア'+tu.sc+'</span></div></div>';
+ SPSTAFF.forEach(function(s){var t=tot[s.id];sumh+='<div class="sp-sc"><div class="sp-scn">'+s.n+'</div><div class="sp-scl">担当沿線 '+t.ln+'</div><div class="sp-scg"><span>'+t.st+'駅</span><span>'+t.n+' 駅×間取り</span><span class="sp-scs">スコア'+t.sc+'</span></div>'+rentline(s.id)+'</div>';});
+ var tu=tot[''];sumh+='<div class="sp-sc un"><div class="sp-scn">未割当</div><div class="sp-scl">沿線 '+tu.ln+'</div><div class="sp-scg"><span>'+tu.st+'駅</span><span>'+tu.n+' 駅×間取り</span><span class="sp-scs">スコア'+tu.sc+'</span></div>'+rentline('')+'</div>';
  sumh+='</div>';
  var bar='<div class="sp-bar"><div class="sp-grp"><span class="sp-lbl">都県</span>'+spChip('pf','all','一都三県')+spChip('pf','東京','東京')+spChip('pf','神奈川','神奈川')+spChip('pf','千葉','千葉')+'</div>'+
    '<div class="sp-grp"><span class="sp-lbl">間取り</span>'+spChip('ct','all','全て')+spChip('ct','シングル','シングル')+spChip('ct','カップル','カップル')+spChip('ct','ファミリー','ファミリー')+'</div></div>';
  var h='<div class="sp-xscroll" onwheel="spWheel(event,this)"><table class="sp-tbl"><thead><tr>'+
    '<th class="l">#</th><th class="l" onclick="spS(\'name\')">路線'+spArrow('name')+'</th><th class="l">担当</th>'+
-   '<th onclick="spS(\'stations\')">駅数'+spArrow('stations')+'</th><th onclick="spS(\'entries\')">枠数'+spArrow('entries')+'</th><th onclick="spS(\'t10\')">Top10'+spArrow('t10')+'</th><th onclick="spS(\'score\')">スコア'+spArrow('score')+'</th><th class="l">メモ</th></tr></thead><tbody>';
+   '<th onclick="spS(\'stations\')">駅数'+spArrow('stations')+'</th><th onclick="spS(\'entries\')">駅×間取り'+spArrow('entries')+'</th><th onclick="spS(\'t10\')">Top10'+spArrow('t10')+'</th><th onclick="spS(\'score\')">スコア'+spArrow('score')+'</th><th class="l">メモ</th></tr></thead><tbody>';
  L.forEach(function(o,i){
    var a=LASSIGN[o.l]||'';var lj=spJs(o.l);
    var sel='<select class="sp-sel'+(a?' on':'')+'" onchange="setLA(\''+lj+'\',this.value)" onclick="event.stopPropagation()"><option value="">未割当</option>'+SPSTAFF.map(function(s){return '<option value="'+s.id+'"'+(a===s.id?' selected':'')+'>'+s.n+'</option>';}).join('')+'</select>';
@@ -744,20 +763,20 @@ function spRender(){
  });
  h+='</tbody></table></div>';
  var body=document.getElementById('spbody');if(!body)return;
- body.innerHTML='<div class="sp-head"><div class="sp-ht">沿線担当割り振り分析</div><div class="sp-hs">反響ランキング（駅×間取り）を沿線別に集計。担当を割り当て、メモは全PCで共有されます。上位スコア＝Σ(101−順位)。</div></div>'+
-   sumh+bar+'<div class="sp-cnt">対象 '+spRows().length+'枠 ／ '+L.length+'沿線（'+(spPref==='all'?'一都三県':spPref)+' ／ '+(spCat==='all'?'全間取り':spCat)+'）</div>'+h;
+ body.innerHTML='<div class="sp-head"><div class="sp-ht">沿線担当割り振り分析</div><div class="sp-hs">反響ランキング（駅×間取り）を沿線別に集計。担当を割り当て、メモは全PCで共有。opo帯＝最も伸ばせる価格帯。上位スコア＝Σ(101−順位)。</div></div>'+
+   sumh+bar+'<div class="sp-cnt">対象 '+spRows().length+' 駅×間取り ／ '+L.length+'沿線（'+(spPref==='all'?'一都三県':spPref)+' ／ '+(spCat==='all'?'全間取り':spCat)+'）</div>'+h;
 }
 function spDetail(o){
  var ents=o.ents.filter(function(d){return spDPref==='all'||d.pref===spDPref;});
  var pc={'東京':{},'神奈川':{},'千葉':{}};o.ents.forEach(function(d){pc[d.pref][d.st]=1;});
  var sum='<div class="sp-psum">';['東京','神奈川','千葉'].forEach(function(p){var n=Object.keys(pc[p]).length;if(n)sum+='<span>'+spPB(p)+' '+n+'駅</span>';});sum+='</div>';
  function dc(p,lab){var cls=p==='東京'?'tk':p==='神奈川'?'kn':p==='千葉'?'cb':'';return '<span class="sp-chip sm '+cls+(spDPref===p?' on':'')+'" onclick="spSetDPref(\''+p+'\')">'+lab+'</span>';}
- var chips='<div class="sp-dpf"><span class="sp-lbl">沿線内 都県</span>'+dc('all','全体')+dc('東京','東京')+dc('神奈川','神奈川')+dc('千葉','千葉')+'</div>';
+ var chips='<div class="sp-dpf"><span class="sp-lbl">沿線内 都県</span>'+dc('all','全体')+dc('東京','東京')+dc('神奈川','神奈川')+dc('千葉','千葉')+'<span class="sp-hint">行クリックで gap分析</span></div>';
  var arr=ents.slice().sort(function(a,b){if(spDSortK==='s')return (a.st<b.st?-1:a.st>b.st?1:0)*spDSortD;if(spDSortK==='c')return (a.cat<b.cat?-1:a.cat>b.cat?1:0)*spDSortD;if(spDSortK==='p')return (a.pref<b.pref?-1:a.pref>b.pref?1:0)*spDSortD;return (a.rank-b.rank)*spDSortD;});
  function da(k){return spDSortK===k?(spDSortD<0?'▼':'▲'):'';}
- var t='<div class="sp-xscroll" onwheel="spWheel(event,this)"><table class="sp-t2"><thead><tr><th class="l" onclick="spSDt(\'s\')">駅'+da('s')+'</th><th class="l" onclick="spSDt(\'c\')">間取り'+da('c')+'</th><th class="l" onclick="spSDt(\'p\')">都県'+da('p')+'</th><th onclick="spSDt(\'r\')" style="text-align:right;cursor:pointer">順位'+da('r')+'</th><th class="l">メモ</th></tr></thead><tbody>';
- arr.forEach(function(d){var pcl=d.cat==='シングル'?'pS':d.cat==='カップル'?'pC':'pF';var key=d.line+'|'+d.st+'|'+d.cat+'|'+d.pref;var kj=spJs(key);var em=EMEMO[key]||'';
-   t+='<tr><td class="l">'+d.st+'</td><td class="l"><span class="sp-pill '+pcl+'">'+d.cat+'</span></td><td class="l">'+spPB(d.pref)+'</td><td style="text-align:right">'+d.rank+'位</td><td class="l"><input class="sp-memo'+(em?' on':'')+'" value="'+spEsc(em)+'" placeholder="メモ" onchange="setEM(\''+kj+'\',this.value)"></td></tr>';});
+ var t='<div class="sp-xscroll" onwheel="spWheel(event,this)"><table class="sp-t2"><thead><tr><th class="l" onclick="spSDt(\'s\')">駅'+da('s')+'</th><th class="l" onclick="spSDt(\'c\')">間取り'+da('c')+'</th><th class="l" onclick="spSDt(\'p\')">都県'+da('p')+'</th><th onclick="spSDt(\'r\')" style="text-align:right;cursor:pointer">順位'+da('r')+'</th><th class="l">opo帯(金額)</th><th class="l">メモ</th></tr></thead><tbody>';
+ arr.forEach(function(d){var pcl=d.cat==='シングル'?'pS':d.cat==='カップル'?'pC':'pF';var key=d.line+'|'+d.st+'|'+d.cat+'|'+d.pref;var kj=spJs(key);var em=EMEMO[key]||'';var band=spOpoBand(d)||'<span class="nd">—</span>';
+   t+='<tr class="sp-drow" style="cursor:pointer" onclick="spOpenGap(\''+spJs(d.pref)+'\',\''+spJs(d.cat)+'\',\''+spJs(d.st)+'\')"><td class="l">'+d.st+'</td><td class="l"><span class="sp-pill '+pcl+'">'+d.cat+'</span></td><td class="l">'+spPB(d.pref)+'</td><td style="text-align:right">'+d.rank+'位</td><td class="l sp-band">'+band+'</td><td class="l" onclick="event.stopPropagation()"><input class="sp-memo'+(em?' on':'')+'" value="'+spEsc(em)+'" placeholder="メモ" onchange="setEM(\''+kj+'\',this.value)"></td></tr>';});
  t+='</tbody></table></div>';
  return '<div class="sp-expb">'+sum+chips+t+'</div>';
 }
