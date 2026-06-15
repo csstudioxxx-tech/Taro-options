@@ -298,7 +298,7 @@ td.tantocell{text-align:center}
 .sp-note{font-size:8px;color:#b7bcc4;margin-left:3px;font-weight:400}
 .sp-t2 .sp-sel{max-width:72px}
 </style></head><body>
-<header class="top"><div class="wrap"><div class="hmono"><div class="hbadge"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z" fill="#f4c430"/></svg></div><div class="hcol"><div class="htt">Taro-Mira</div><div class="hsb">運を、構造化する。<span style="color:#9aa2ad;margin-left:7px;font-size:10px">build 2026-06-15b</span></div></div><button class="hbtn" type="button" style="margin-left:auto" onclick="openSenpage()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1a3d6b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="1.8"/><circle cx="6" cy="18" r="1.8"/><path d="M8 6h11M8 18h11M6 8v8"/></svg>沿線担当割り振り分析</button><a class="hbtn" href="priority.html" style="margin-left:8px"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L15.2 12 12 10.6 8.8 12Z" fill="#E5484D"/><path d="M12 21L15.2 12 12 13.4 8.8 12Z" fill="#E5484D" opacity="0.4"/></svg>Jiro-Polaris</a></div></div></header>
+<header class="top"><div class="wrap"><div class="hmono"><div class="hbadge"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z" fill="#f4c430"/></svg></div><div class="hcol"><div class="htt">Taro-Mira</div><div class="hsb">運を、構造化する。<span style="color:#9aa2ad;margin-left:7px;font-size:10px">build 2026-06-15c</span></div></div><button class="hbtn" type="button" style="margin-left:auto" onclick="openSenpage()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1a3d6b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="1.8"/><circle cx="6" cy="18" r="1.8"/><path d="M8 6h11M8 18h11M6 8v8"/></svg>沿線担当割り振り分析</button><a class="hbtn" href="priority.html" style="margin-left:8px"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L15.2 12 12 10.6 8.8 12Z" fill="#E5484D"/><path d="M12 21L15.2 12 12 13.4 8.8 12Z" fill="#E5484D" opacity="0.4"/></svg>Jiro-Polaris</a></div></div></header>
 <div class="wrap">
 <div class="controls">
 <div class="cg"><label>都道府県</label><div class="seg" id="fp"></div></div>
@@ -778,15 +778,23 @@ function spDetail(o){
  var pc={'東京':{},'神奈川':{},'千葉':{}};o.ents.forEach(function(d){pc[d.pref][d.st]=1;});
  var sum='<div class="sp-psum">';['東京','神奈川','千葉'].forEach(function(p){var n=Object.keys(pc[p]).length;if(n)sum+='<span>'+spPB(p)+' '+n+'駅</span>';});sum+='</div>';
  function dc(p,lab){var cls=p==='東京'?'tk':p==='神奈川'?'kn':p==='千葉'?'cb':'';return '<span class="sp-chip sm '+cls+(spDPref===p?' on':'')+'" onclick="spSetDPref(\''+p+'\')">'+lab+'</span>';}
- var chips='<div class="sp-dpf"><span class="sp-lbl">沿線内 都県</span>'+dc('all','全体')+dc('東京','東京')+dc('神奈川','神奈川')+dc('千葉','千葉')+'<span class="sp-hint">行クリックで gap分析（担当の▼はクリックで選択）</span></div>';
- var arr=ents.slice().sort(function(a,b){if(spDSortK==='s')return (a.st<b.st?-1:a.st>b.st?1:0)*spDSortD;if(spDSortK==='c')return (a.cat<b.cat?-1:a.cat>b.cat?1:0)*spDSortD;if(spDSortK==='p')return (a.pref<b.pref?-1:a.pref>b.pref?1:0)*spDSortD;return (a.rank-b.rank)*spDSortD;});
+ var chips='<div class="sp-dpf"><span class="sp-lbl">沿線内 都県</span>'+dc('all','全体')+dc('東京','東京')+dc('神奈川','神奈川')+dc('千葉','千葉')+'</div>';
+ function ds(k,lab){return '<span class="sp-chip sm'+(spDSortK===k?' on':'')+'" onclick="spSDt(\''+k+'\')">'+lab+(spDSortK===k?(spDSortD<0?' ▼':' ▲'):'')+'</span>';}
+ var sortbar='<div class="sp-dpf"><span class="sp-lbl">並び替え</span>'+ds('s','駅順')+ds('c','間取り順')+ds('r','順位順')+ds('p','都県順')+'<span class="sp-hint">行クリックで gap分析</span></div>';
+ var MORD={'シングル':0,'カップル':1,'ファミリー':2};
+ function byStr(a,b){return String(a).localeCompare(String(b),'ja');}
+ var arr=ents.slice().sort(function(a,b){var r;
+   if(spDSortK==='s'){r=byStr(a.st,b.st)*spDSortD;if(r)return r;r=MORD[a.cat]-MORD[b.cat];if(r)return r;return a.rank-b.rank;}
+   if(spDSortK==='c'){r=((MORD[a.cat]||0)-(MORD[b.cat]||0))*spDSortD;if(r)return r;r=byStr(a.st,b.st);if(r)return r;return a.rank-b.rank;}
+   if(spDSortK==='p'){r=byStr(a.pref,b.pref)*spDSortD;if(r)return r;return a.rank-b.rank;}
+   return (a.rank-b.rank)*spDSortD;});
  function da(k){return spDSortK===k?(spDSortD<0?'▼':'▲'):'';}
  var t='<div class="sp-xscroll" onwheel="spWheel(event,this)"><table class="sp-t2"><thead><tr><th class="l" onclick="spSDt(\'s\')">駅'+da('s')+'</th><th class="l" onclick="spSDt(\'c\')">間取り'+da('c')+'</th><th class="l" onclick="spSDt(\'p\')">都県'+da('p')+'</th><th onclick="spSDt(\'r\')" style="text-align:right;cursor:pointer">順位'+da('r')+'</th><th class="l">担当</th><th class="l">opo帯(金額)</th><th class="l">メモ</th></tr></thead><tbody>';
  arr.forEach(function(d){var pcl=d.cat==='シングル'?'pS':d.cat==='カップル'?'pC':'pF';var key=spKey(d);var kj=spJs(key);var em=EMEMO[key]||'';var ea=EASSIGN[key]||'';var band=spOpoBand(d)||'<span class="nd">—</span>';
    var tsel=spStaffSel(ea,'setEA(\''+kj+'\',this.value)');
    t+='<tr class="sp-drow" style="cursor:pointer" onclick="spOpenGap(\''+spJs(d.pref)+'\',\''+spJs(d.cat)+'\',\''+spJs(d.st)+'\')"><td class="l">'+d.st+'</td><td class="l"><span class="sp-pill '+pcl+'">'+d.cat+'</span></td><td class="l">'+spPB(d.pref)+'</td><td style="text-align:right">'+d.rank+'位</td><td class="l">'+tsel+'</td><td class="l sp-band">'+band+'</td><td class="l" onclick="event.stopPropagation()"><input class="sp-memo'+(em?' on':'')+'" value="'+spEsc(em)+'" placeholder="メモ" onchange="setEM(\''+kj+'\',this.value)"></td></tr>';});
  t+='</tbody></table></div>';
- return '<div class="sp-expb">'+sum+chips+t+'</div>';
+ return '<div class="sp-expb">'+sum+chips+sortbar+t+'</div>';
 }
 
 </script></body></html
