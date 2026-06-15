@@ -346,8 +346,10 @@ tr.rmd-red td.st{box-shadow:inset 3px 0 0 #C0392B}
 .binput .byin{font:inherit;font-size:11px;padding:2px 4px;border:1px solid #d8dee8;border-radius:6px;margin-left:4px}
 .binput .noteIn{font:inherit;font-size:11px;padding:2px 6px;border:1px solid #d8dee8;border-radius:6px;margin-left:4px;width:120px}
 .ctlsel{font:inherit;font-size:12px;padding:4px 8px;border:1px solid #d8dee8;border-radius:8px;background:#fff;cursor:pointer}
+
+td.pricell{text-align:center}
 </style></head><body>
-<header class="top"><div class="wrap"><div class="hmono"><div class="hbadge"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z" fill="#f4c430"/></svg></div><div class="hcol"><div class="htt">Taro-Mira</div><div class="hsb">運を、構造化する。<span style="color:#9aa2ad;margin-left:7px;font-size:10px">build 2026-06-15k</span></div></div><button class="hbtn" type="button" style="margin-left:auto" onclick="openSenpage()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1a3d6b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="1.8"/><circle cx="6" cy="18" r="1.8"/><path d="M8 6h11M8 18h11M6 8v8"/></svg>沿線担当割り振り分析</button><a class="hbtn" href="priority.html" style="margin-left:8px"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L15.2 12 12 10.6 8.8 12Z" fill="#E5484D"/><path d="M12 21L15.2 12 12 13.4 8.8 12Z" fill="#E5484D" opacity="0.4"/></svg>Jiro-Polaris</a></div></div></header>
+<header class="top"><div class="wrap"><div class="hmono"><div class="hbadge"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z" fill="#f4c430"/></svg></div><div class="hcol"><div class="htt">Taro-Mira</div><div class="hsb">運を、構造化する。<span style="color:#9aa2ad;margin-left:7px;font-size:10px">build 2026-06-15l</span></div></div><button class="hbtn" type="button" style="margin-left:auto" onclick="openSenpage()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1a3d6b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="1.8"/><circle cx="6" cy="18" r="1.8"/><path d="M8 6h11M8 18h11M6 8v8"/></svg>沿線担当割り振り分析</button><a class="hbtn" href="priority.html" style="margin-left:8px"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L15.2 12 12 10.6 8.8 12Z" fill="#E5484D"/><path d="M12 21L15.2 12 12 13.4 8.8 12Z" fill="#E5484D" opacity="0.4"/></svg>Jiro-Polaris</a></div></div></header>
 <div class="wrap">
 <div class="controls">
 <div class="cg"><label>都道府県</label><div class="seg" id="fp"></div></div>
@@ -381,7 +383,7 @@ tr.rmd-red td.st{box-shadow:inset 3px 0 0 #C0392B}
 <div class="lctool"><span id="lcstat" class="lcstatus">掲載数: 読込中…</span><button type="button" class="lcbtn" onclick="loadListingCounts()">更新</button></div>
 <div id="rmdBar" class="rmd-bar" style="display:none"></div>
 <div class="tablewrap"><table id="tb"><thead><tr>
-<th>駅</th><th>順位</th><th>間取り</th><th>確度</th><th class="opoh">opo</th><th>dema</th><th class="sortable" style="text-align:center" onclick="cycleTantoSort()">担当 <span id="tantoArrow"></span></th><th class="lcnum">掲載数</th><th id="thDate" class="sortable" style="text-align:center" onclick="cycleDateSort()">物出し <span id="dateArrow"></span></th><th style="text-align:center">メモ</th>
+<th>駅</th><th>順位</th><th>間取り</th><th>確度</th><th class="opoh">opo</th><th>dema</th><th class="sortable" style="text-align:center" onclick="cycleTantoSort()">担当 <span id="tantoArrow"></span></th><th style="text-align:center">優先</th><th class="lcnum">掲載数</th><th id="thDate" class="sortable" style="text-align:center" onclick="cycleDateSort()">物出し <span id="dateArrow"></span></th><th style="text-align:center">メモ</th>
 </tr></thead><tbody id="tbody"></tbody></table></div>
 <div class="foot">Source: SUUMO 間取り×賃料別 効果分布（関東）2026.05 ・ 同期状態: <span id="syncst">共有DB未設定</span></div>
 </div>
@@ -524,6 +526,7 @@ function setSortMode(v){sortMode=v;var da=document.getElementById('dateArrow');i
 function pickTanto(v){selT.clear();if(v)selT.add(v);if(typeof segTanto==='function')segTanto('ft');render();}
 function setEAx(key,val){if(val==='__exclude__'){var r=prompt('\u7269\u51fa\u3057\u9664\u5916\u306e\u7406\u7531\uff08\u5fc5\u9808\u30fb\u30e1\u30e2\u306b\u4fdd\u5b58\uff09',(typeof EMEMO!=='undefined'&&EMEMO[key])||'');if(r==null||r.trim()===''){alert('\u7406\u7531\u304c\u672a\u5165\u529b\u306e\u305f\u3081\u9664\u5916\u3092\u30ad\u30e3\u30f3\u30bb\u30eb\u3057\u307e\u3057\u305f');if(typeof spRender==='function')spRender();return;}EMEMO[key]=r.trim();try{localStorage.setItem('aivoyage_ememo',JSON.stringify(EMEMO));}catch(e){}spPushKV('EM__'+key,r.trim());}setEA(key,val);}
 function setEAxMain(eakey,val){if(val==='__exclude__'){var pp=eakey.split('|');var mkey=pp[3]+'|'+pp[2]+'|'+pp[1];var r=prompt('\u7269\u51fa\u3057\u9664\u5916\u306e\u7406\u7531\uff08\u5fc5\u9808\u30fb\u30e1\u30e2\u306b\u4fdd\u5b58\uff09',(typeof MEMO!=='undefined'&&MEMO[mkey])||'');if(r==null||r.trim()===''){alert('\u7406\u7531\u304c\u672a\u5165\u529b\u306e\u305f\u3081\u9664\u5916\u3092\u30ad\u30e3\u30f3\u30bb\u30eb\u3057\u307e\u3057\u305f');render();return;}MEMO[mkey]=r.trim();try{localStorage.setItem('aivoyage_memo',JSON.stringify(MEMO));}catch(e){}if(typeof pushMemo==='function')pushMemo(mkey);}setEA(eakey,val);}
+function priButtons(d){var key=d.line+'|'+d.st+'|'+d.cat+'|'+d.pref;var ep=(typeof EPRI!=='undefined'&&EPRI[key])||'';var kj=key.replace(/\\/g,'\\\\').replace(/'/g,"\\'");return '<span class="sp-pri" onclick="event.stopPropagation()">'+['S','A','B'].map(function(L){return '<b class="p'+L+(ep===L?' on':'')+'" onclick="setEP(\''+kj+'\',\''+L+'\')">'+L+'</b>';}).join('')+'</span>';}
 function render(){
  const rows=applySort(filt());const tb=document.getElementById('tbody');
  let html='';
@@ -543,6 +546,7 @@ function render(){
    +'<td data-label="オポ" class="opocell">'+oppC+'</td>'
    +'<td data-label="デマンド">'+demC+'</td>'
    +'<td data-label="担当" class="tantocell">'+tantoSel(d)+'</td>'
+   +'<td data-label="優先" class="pricell">'+priButtons(d)+'</td>'
    +'<td data-label="掲載数" class="lcnum">'+(LC[d.cat+'|'+d.st]!=null?LC[d.cat+'|'+d.st]:'<span class=nd>—</span>')+'</td>'
    +'<td class="bcell" data-label="物出し" onclick="event.stopPropagation()">'
    +'<div class="bsum"><span class="bdate">最新 '+(fmtMD(bdLatestK((d.pref+'|'+d.cat+'|'+d.st)))||'—')+'</span>'+(_hl?'<span class="rmd-bdg '+(_hl==='rmd-red'?'red':'yel')+'">要物出し'+(_ds===null?'(未)':'('+_ds+'日)')+'</span>':'')+'<span class="bmon">今月 <b class="r">'+bdMonth((d.pref+'|'+d.cat+'|'+d.st))+'</b> 件</span></div>'
@@ -550,7 +554,7 @@ function render(){
    +'</td>'
    +'<td class="mcell" data-label="メモ" onclick="event.stopPropagation()"><textarea rows="2" class="memoin'+(mget((d.pref+'|'+d.cat+'|'+d.st))?' set':'')+'" data-k="'+(d.pref+'|'+d.cat+'|'+d.st)+'" placeholder="メモを入力" onchange="setMemo(this)">'+esc(mget((d.pref+'|'+d.cat+'|'+d.st)))+'</textarea></td>'
    +'</tr>';}
- tb.innerHTML=html||'<tr><td colspan="10" style="padding:24px;text-align:center;color:#999">該当データなし</td></tr>';
+ tb.innerHTML=html||'<tr><td colspan="11" style="padding:24px;text-align:center;color:#999">該当データなし</td></tr>';
  renderReminders();
  const wd=rows.filter(r=>r.hasd);
  const oppc=wd.filter(r=>zonesOf(r).oz.length>0).length;
