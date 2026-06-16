@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="ja"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Jiro-Polaris｜日次 物出しワークリスト</title>
+<title>Taro-Mira｜反響効果ダッシュボード</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;500;700;900&family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
@@ -379,50 +379,9 @@ tr.bd-exclude td{background:#fafafa;color:#9aa3ad}
 tr.bd-exclude td.st{box-shadow:inset 3px 0 0 #9aa3ad}
 tr.sp-exclude td{background:#fafafa;color:#9aa3ad!important}
 tr.sp-exclude td.l:first-child{box-shadow:inset 3px 0 0 #9aa3ad}
-
-.controls,.kpis,.legend,.lctool,.tablewrap{display:none!important}
-#jiroUI{margin-top:6px}
-.jhead{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-end;margin:10px 0 4px}
-.jfield label{display:block;font-size:11px;color:#6b7280;margin-bottom:4px}
-.jsort{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0 4px}
-.jchip{display:inline-flex;align-items:center;gap:6px;padding:6px 13px;border:1px solid #d8dce1;border-radius:20px;background:#fff;cursor:pointer;font-size:13px;color:#243b53}
-.jchip.on{background:#C0392B;color:#fff;border-color:#C0392B}
-.jchip .ord{font-size:11px;font-weight:700;background:rgba(255,255,255,.25);border-radius:8px;padding:0 6px}
-.jchip .dir{font-size:12px;padding:0 2px}
-.jsec{margin:16px 0}
-.jsec h3{font-size:15px;font-weight:700;color:#1A3D6B;margin:0 0 8px;display:flex;align-items:center;gap:8px}
-.jcount{font-size:12px;color:#6b7280;font-weight:400}
-.jgrp{margin:4px 0 14px}
-.jgrp .glab{font-size:12px;font-weight:700;padding:3px 11px;border-radius:7px;display:inline-block;margin:0 0 6px}
-.jrow{display:grid;grid-template-columns:1.25fr .85fr auto 1.5fr 1.5fr auto auto;gap:12px;align-items:center;padding:9px 13px;border:1px solid #eceef1;border-radius:10px;margin-bottom:6px;background:#fff;border-left:4px solid transparent}
-.jrow .jst{font-weight:600;color:#1A3D6B}
-.jrow .jcat{font-size:12px;color:#444}
-.jrow .jband{font-size:12px;color:#A32D2D;white-space:nowrap}
-.jrow .jdem{font-size:12px;color:#6b7280;white-space:nowrap}
-.jrow .jdays{font-size:12px;font-weight:700;white-space:nowrap;text-align:right}
-.jrow .jgap{font-size:12px;color:#185FA5;cursor:pointer;text-decoration:underline;white-space:nowrap;margin-right:8px}
-.jrow .jbd{font-size:12px;padding:5px 12px;border-radius:8px;border:1px solid #C0392B;background:#C0392B;color:#fff;cursor:pointer;white-space:nowrap}
-.jrow .jbd:hover{opacity:.88}
-.jrow.r-red{border-left-color:#e24b4a;background:#fff6f6}
-.jrow.r-yellow{border-left-color:#eab308;background:#fffbeb}
-.jrow.r-green{border-left-color:#2e9e4f;background:#f4faf5}
-.jrow.r-blue{border-left-color:#0070C0;background:#f3f8fd}
-.jrow.r-exclude{border-left-color:#9aa3ad;background:#fafafa}
-.jrow.r-exclude .jst,.jrow.r-exclude .jcat,.jrow.r-exclude .jband,.jrow.r-exclude .jdem,.jrow.r-exclude .jdays{color:#9aa3ad}
-.jempty{font-size:13px;color:#9aa2ad;padding:8px 4px}
-@media(max-width:760px){.jrow{grid-template-columns:1fr auto;row-gap:4px}.jrow .jband,.jrow .jdem{grid-column:1/-1}}
 </style></head><body>
-<header class="top"><div class="wrap"><div class="hmono"><div class="hbadge"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L15.2 12 12 10.6 8.8 12Z" fill="#C0392B"/><path d="M12 21L15.2 12 12 13.4 8.8 12Z" fill="#C0392B" opacity="0.4"/></svg></div><div class="hcol"><div class="htt">Jiro-Polaris</div><div class="hsb">運を、構造化する。<span style="color:#9aa2ad;margin-left:7px;font-size:10px">Jiro build 2026-06-16a</span></div></div><button class="hbtn" type="button" style="margin-left:auto" onclick="openSenpage()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1a3d6b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="1.8"/><circle cx="6" cy="18" r="1.8"/><path d="M8 6h11M8 18h11M6 8v8"/></svg>沿線担当割り振り分析</button><a class="hbtn" href="index.html" style="margin-left:8px"><svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z" fill="#f4c430"/></svg>Taro-Mira へ</a></div></div></header>
+<header class="top"><div class="wrap"><div class="hmono"><div class="hbadge"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z" fill="#f4c430"/></svg></div><div class="hcol"><div class="htt">Taro-Mira</div><div class="hsb">運を、構造化する。<span style="color:#9aa2ad;margin-left:7px;font-size:10px">build 2026-06-15r</span></div></div><button class="hbtn" type="button" style="margin-left:auto" onclick="openSenpage()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1a3d6b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="1.8"/><circle cx="6" cy="18" r="1.8"/><path d="M8 6h11M8 18h11M6 8v8"/></svg>沿線担当割り振り分析</button><a class="hbtn" href="priority.html" style="margin-left:8px"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L15.2 12 12 10.6 8.8 12Z" fill="#E5484D"/><path d="M12 21L15.2 12 12 13.4 8.8 12Z" fill="#E5484D" opacity="0.4"/></svg>Jiro-Polaris</a></div></div></header>
 <div class="wrap">
-<div id="jiroUI">
-<div class="jhead">
-<div class="jfield"><label>あなた（担当者）</label><select id="jMe" class="ctlsel" onchange="jSetMe(this.value)"><option value="">（選択）</option><option value="miyamoto">宮本</option><option value="hironaka">弘中</option><option value="yokoyama">横山</option><option value="oinuma">生沼</option><option value="tanabe">田邊</option></select></div>
-<div class="jfield"><label>担当外の表示</label><div class="tgs"><button id="jAll" class="tg" onclick="jToggleAll()"><span class="bx">✓</span>青・緑も表示</button><button id="jHidexB" class="tg" onclick="toggleHidex()"><span class="bx">✓</span>物出し除外を隠す</button></div></div>
-</div>
-<div class="jsort"><span style="font-size:11px;color:#6b7280">色グループ内の並び（押した順に適用）</span><span class="jchip" id="jc-gr" onclick="jToggleSort('gr')">反響確度</span><span class="jchip" id="jc-cat" onclick="jToggleSort('cat')">間取り</span><span class="jchip" id="jc-pri" onclick="jToggleSort('pri')">優先(SAB)</span><span style="font-size:11px;color:#9aa2ad">チップ右の▲▼で昇降</span></div>
-<div class="jsec" id="jMine"></div>
-<div class="jsec" id="jOther"></div>
-</div>
 <div class="controls">
 <div class="cg"><label>都道府県</label><div class="seg" id="fp"></div></div>
 <div class="cg"><label>距離フィルタ</label><div class="tgs">
@@ -611,26 +570,7 @@ function closeBdPopup(){var p=document.getElementById('bdpop');if(p)p.classList.
 function saveBdPopup(){if(!BDK){closeBdPopup();return;}var dt=document.getElementById('bdpopDate').value||todayISO();var c=parseInt(document.getElementById('bdpopC').value,10);c=isNaN(c)?0:c;if(c<=0){alert('物件出し数を入力してください');return;}var note=(document.getElementById('bdpopNote').value||'').trim();var by=document.getElementById('bdpopBy').value||'';if(!BV[BDK])BV[BDK]={};if(!BV[BDK].log)BV[BDK].log={};BV[BDK].log[dt]={c:c,note:note,by:by};try{localStorage.setItem('aivoyage_butsudashi_v2',JSON.stringify(BV));}catch(e){}pushRow(BDK);closeBdPopup();render();}
 function bdTier(d,ek){function v(x){return x==='S'?3:x==='A'?2:x==='B'?1:0;}var p=(typeof EPRI!=='undefined'&&EPRI[ek])||'';var m=Math.max(v(d.gr),v(p));return m===3?'S':m===2?'A':m===1?'B':'';}
 function bdColor(tier,ds){if(ds===null)return '';if(tier==='S'){if(ds<=2)return 'bd-blue';if(ds===3)return 'bd-green';if(ds===4)return 'bd-yellow';return 'bd-red';}if(tier==='A'){if(ds<=2)return 'bd-blue';if(ds<=4)return 'bd-green';if(ds===5)return 'bd-yellow';return 'bd-red';}if(ds<=3)return 'bd-blue';if(ds<=6)return 'bd-green';if(ds===7)return 'bd-yellow';return 'bd-red';}
-
-var JME='';try{JME=localStorage.getItem('aivoyage_jiro_me')||'';}catch(e){}
-var JOTHERALL=false;try{JOTHERALL=localStorage.getItem('aivoyage_jiro_all')==='1';}catch(e){}
-var JSORT=[];try{JSORT=JSON.parse(localStorage.getItem('aivoyage_jiro_sort')||'[]')||[];}catch(e){JSORT=[];}
-function jSaveSort(){try{localStorage.setItem('aivoyage_jiro_sort',JSON.stringify(JSORT));}catch(e){}}
-function jSetMe(v){JME=v;try{localStorage.setItem('aivoyage_jiro_me',v);}catch(e){}renderJiro();}
-function jToggleAll(){JOTHERALL=!JOTHERALL;try{localStorage.setItem('aivoyage_jiro_all',JOTHERALL?'1':'0');}catch(e){}renderJiro();}
-function jToggleSort(k){var i=-1;for(var x=0;x<JSORT.length;x++){if(JSORT[x].k===k){i=x;break;}}if(i>=0)JSORT.splice(i,1);else JSORT.push({k:k,d:1});jSaveSort();renderJiro();}
-function jFlipDir(k,ev){if(ev){ev.stopPropagation();}for(var x=0;x<JSORT.length;x++){if(JSORT[x].k===k){JSORT[x].d=-JSORT[x].d;break;}}jSaveSort();renderJiro();}
-function jSyncToggles(){var a=document.getElementById('jAll');if(a)a.className='tg'+(JOTHERALL?' on':'');var h=document.getElementById('jHidexB');if(h)h.className='tg'+(HIDEX?' on':'');}
-function jSyncSort(){var labs={gr:'反響確度',cat:'間取り',pri:'優先(SAB)'};['gr','cat','pri'].forEach(function(k){var el=document.getElementById('jc-'+k);if(!el)return;var idx=-1;for(var x=0;x<JSORT.length;x++){if(JSORT[x].k===k){idx=x;break;}}if(idx>=0){var d=JSORT[idx].d;el.className='jchip on';el.innerHTML='<span class="ord">'+(idx+1)+'</span>'+labs[k]+'<span class="dir" onclick="jFlipDir(\''+k+'\',event)">'+(d>0?'▲':'▼')+'</span>';}else{el.className='jchip';el.innerHTML=labs[k];}});}
-function jVal(k,d){if(k==='gr'){var g=d.gr;return g==='S'?0:g==='A'?1:g==='B'?2:g==='C'?3:4;}if(k==='cat'){var M={'シングル':0,'カップル':1,'ファミリー':2};return M[d.cat]==null?9:M[d.cat];}if(k==='pri'){var p=(typeof EPRI!=='undefined'&&EPRI[d._ek])||'';return p==='S'?0:p==='A'?1:p==='B'?2:3;}return 0;}
-function jPrep(d){d._ek=spKey(d);d._as=(typeof EASSIGN!=='undefined'&&EASSIGN[d._ek])||'';d._ds=daysSinceLast(d.pref+'|'+d.cat+'|'+d.st);d._tier=bdTier(d,d._ek);if(d._as==='__exclude__'){d._jhl='bd-exclude';}else if(d._ds===null){d._jhl='bd-red';}else{d._jhl=bdColor(d._tier,d._ds)||'bd-red';}return d;}
-function jCmp(a,b){for(var i=0;i<JSORT.length;i++){var sk=JSORT[i];var va=jVal(sk.k,a),vb=jVal(sk.k,b);if(va!==vb)return (va-vb)*sk.d;}if(a.rank!==b.rank)return a.rank-b.rank;return String(a.st).localeCompare(String(b.st),'ja');}
-function jRow(d,defAs){var bk=d.pref+'|'+d.cat+'|'+d.st;var band=spOpoBand(d)||'—';var dem=spDemBand(d)||'—';var dayTxt=(d._ds===null?'未実施':d._ds+'日');var excl=(d._jhl==='bd-exclude');var clr=d._jhl==='bd-red'?'r-red':d._jhl==='bd-yellow'?'r-yellow':d._jhl==='bd-green'?'r-green':d._jhl==='bd-blue'?'r-blue':'r-exclude';var btn=excl?'<span style="font-size:11px;color:#9aa3ad">物出し除外</span>':'<button class="jbd" data-k="'+bk+'" data-as="'+(defAs||'')+'" data-lb="'+spEsc(d.st)+' '+d.cat+'" onclick="openBdPopupBtn(this)">物出し登録</button>';return '<div class="jrow '+clr+'">'+'<div><span class="jst">'+d.st+'</span></div>'+'<div class="jcat">'+d.cat+'</div>'+'<div>'+gbadge(d)+'</div>'+'<div class="jband">opo '+band+'</div>'+'<div class="jdem">dema '+dem+'</div>'+'<div class="jdays">'+dayTxt+'</div>'+'<div style="text-align:right"><span class="jgap" onclick="spOpenGap(\''+spJs(d.pref)+'\',\''+spJs(d.cat)+'\',\''+spJs(d.st)+'\')">gap分析</span>'+btn+'</div>'+'</div>';}
-function jSection(el,title,rows,emptyMsg,defAs){var GL={'bd-red':['要対応（赤）','#a3231f','#fdeceb'],'bd-yellow':['注意（黄）','#9a6a00','#fef6e0'],'bd-green':['推奨（緑）','#2e7d32','#eaf6ec'],'bd-blue':['済（青）','#0b66a8','#e8f2fb'],'bd-exclude':['物出し除外','#6b7280','#f1f2f4']};var order=['bd-red','bd-yellow','bd-green','bd-blue','bd-exclude'];var byc={};rows.forEach(function(d){(byc[d._jhl]=byc[d._jhl]||[]).push(d);});var html='<h3>'+title+' <span class="jcount">'+rows.length+'件</span></h3>';if(!rows.length){html+='<div class="jempty">'+emptyMsg+'</div>';el.innerHTML=html;return;}order.forEach(function(c){var arr=byc[c];if(!arr||!arr.length)return;arr.sort(jCmp);var g=GL[c];html+='<div class="jgrp"><div class="glab" style="color:'+g[1]+';background:'+g[2]+'">●'+g[0]+' '+arr.length+'件</div>';arr.forEach(function(d){html+=jRow(d,defAs);});html+='</div>';});el.innerHTML=html;}
-function renderJiro(){var mine=document.getElementById('jMine'),other=document.getElementById('jOther');if(!mine||!other)return;var meSel=document.getElementById('jMe');if(meSel&&meSel.value!==JME)meSel.value=JME;jSyncSort();jSyncToggles();var all=DATA.map(jPrep);var mineRows=JME?all.filter(function(d){return d._as===JME;}):[];var otherRows=all.filter(function(d){if(d._as==='__exclude__'){return JOTHERALL&&!HIDEX;}if(d._as!=='')return false;if(JOTHERALL)return true;return d._jhl==='bd-red'||d._jhl==='bd-yellow';});jSection(mine,'自分の担当の駅',mineRows,(JME?'担当の駅×間取りはありません（沿線担当割り振り分析で割当できます）':'上で担当者を選択してください'),JME);jSection(other,'担当外の駅'+(JOTHERALL?'':'（赤・黄のみ）'),otherRows,'該当なし','');}
-
 function render(){
- if(typeof renderJiro==='function'){if(typeof renderReminders==='function')renderReminders();renderJiro();return;}
  const rows=applySort(filt());const tb=document.getElementById('tbody');
  let html='';
  for(const d of rows){
